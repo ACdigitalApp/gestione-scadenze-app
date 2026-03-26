@@ -71,3 +71,43 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Sincronizzazione da Zenith Finances
+
+Questo progetto include un sistema di sincronizzazione automatica con Zenith Finances per importare transazioni, categorie, promemoria e metodi di pagamento.
+
+### Configurazione
+
+1. **Variabili d'ambiente**: Aggiungi le seguenti variabili al tuo progetto Supabase:
+   ```
+   ZENITH_SUPABASE_URL=https://igptngecujtkofhbzjmj.supabase.co
+   ZENITH_SUPABASE_SERVICE_ROLE_KEY=<inserisci la chiave service role>
+   ```
+
+2. **Accesso Dashboard**: Gli amministratori possono accedere alla dashboard di sincronizzazione all'indirizzo `/admin/zenith-sync`
+
+3. **Sincronizzazione automatica**: Una volta configurato, il sistema esegue automaticamente la sincronizzazione secondo l'intervallo impostato (default: ogni ora)
+
+### Dati Sincronizzati
+
+Il sistema sincronizza i seguenti dati da Zenith Finances:
+
+- **Transazioni**: Tutte le transazioni (entrate/uscite) con importi, categorie, date e informazioni ricorrenti
+- **Categorie**: Categorie personalizzate con icone e colori
+- **Promemoria/Scadenze**: Promemoria con date di scadenza e descrizioni
+- **Metodi di pagamento**: Metodi di pagamento personalizzati
+
+### Funzionalità
+
+- **Sincronizzazione manuale**: Trigger manuale per sincronizzazione immediata
+- **Sincronizzazione automatica**: Esecuzione programmata in base all'intervallo configurato
+- **Deduplicazione**: Usa il campo `zenith_id` per evitare duplicati
+- **Risoluzione conflitti**: Last-write-wins basato su timestamp `updated_at`
+- **Log dettagliati**: Tracciamento completo di ogni operazione di sincronizzazione
+- **Statistiche**: Dashboard con metriche di sincronizzazione e tasso di successo
+
+### Sicurezza
+
+- Solo gli amministratori possono accedere alla dashboard di sincronizzazione
+- Le credenziali Zenith sono memorizzate in modo sicuro come variabili d'ambiente
+- Row Level Security (RLS) attivo su tutte le tabelle di sincronizzazione

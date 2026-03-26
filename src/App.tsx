@@ -21,6 +21,7 @@ import Plans from "./pages/Plans";
 import Archive from "./pages/Archive";
 import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
+import { ZenithSyncDashboard } from "./components/admin/ZenithSyncDashboard";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const App = () => (
                 <Route path="/diagnostics" element={<ProtectedRoute><Diagnostics /></ProtectedRoute>} />
                 <Route path="/archive" element={<ProtectedRoute><Archive /></ProtectedRoute>} />
                 <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>} />
+                <Route path="/admin/zenith-sync" element={<ProtectedRoute><ZenithSyncDashboard /></ProtectedRoute>} />
                 <Route path="/pricing" element={<Pricing />} />
                 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
