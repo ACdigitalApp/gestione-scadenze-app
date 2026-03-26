@@ -28,8 +28,8 @@ export function UpgradeBanner() {
         animate={{ opacity: 1, y: 0 }}
         className="relative mb-6 rounded-xl overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-blue-500/20" />
-        <div className="relative p-4 md:p-5 border border-blue-500/30 rounded-xl backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-green-700/20 via-green-600/20 to-green-700/20" />
+        <div className="relative p-4 md:p-5 border border-green-700/30 rounded-xl backdrop-blur-sm">
           <button
             onClick={() => setDismissed(true)}
             className="absolute top-2 right-2 p-1 rounded-full hover:bg-background/50 text-muted-foreground hover:text-foreground transition-colors"
@@ -39,13 +39,13 @@ export function UpgradeBanner() {
           
           <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
             <div className="flex items-center gap-3">
-              <div className="p-3 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 shadow-lg">
+              <div className="p-3 rounded-full bg-gradient-to-br from-green-600 to-green-800 shadow-lg">
                 <Clock className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="font-bold text-lg flex items-center gap-2">
                   Trial Pro Attivo
-                  <Sparkles className="w-4 h-4 text-blue-500" />
+                  <Sparkles className="w-4 h-4 text-green-600" />
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   {trialDaysRemaining} giorni rimasti - Accesso completo a tutte le funzionalità
