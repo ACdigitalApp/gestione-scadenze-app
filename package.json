@@ -8,11 +8,14 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cap:android": "npx cap add android",
+    "cap:sync:android": "npx cap sync android"
   },
   "dependencies": {
     "@capacitor/cli": "^8.0.0",
     "@capacitor/core": "^8.0.0",
+    "@capacitor/android": "^8.0.0",
     "@capacitor/ios": "^8.0.2",
     "@electron/asar": "^4.0.1",
     "@hookform/resolvers": "^3.10.0",
