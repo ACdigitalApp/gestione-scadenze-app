@@ -56,7 +56,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - acaridi57@gmail.com
+          - acdigital.app@gmail.com
         notify:
           success: true
           failure: true
