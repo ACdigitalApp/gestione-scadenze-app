@@ -22,7 +22,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
-import euro100 from '@/assets/euro-100.png';
+import euro100 from '@/assets/2-euro-coin.png';
 import { format } from 'date-fns';
 import { it } from 'date-fns/locale';
 

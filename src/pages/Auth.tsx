@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import euro100 from '@/assets/euro-100.png';
+import euro100 from '@/assets/2-euro-coin.png';
 
 const loginSchema = z.object({
   email: z.string().email('Email non valida'),
