@@ -54,6 +54,17 @@ import { format } from 'date-fns';
 import { it } from 'date-fns/locale';
 import { useNavigate } from 'react-router-dom';
 
+// ── Cross-app revenue ─────────────────────────────────────────────────────────
+
+const CROSS_APP_APIS: Record<string, { label: string; url: string }> = {
+  gestionepassword: { label: 'Gestione Password', url: 'https://bilingual-pwd-mgr.emergent.host/admin/revenue' },
+  gestionescadenze: { label: 'Gestione Scadenze', url: '' }, // computed locally
+  speakeasy: { label: 'SpeakEasy', url: 'https://speaklivetranslate-backend.up.railway.app/api/admin/revenue' },
+  librifree: { label: 'Librifree', url: 'https://librifree-backend.up.railway.app/api/admin/revenue' },
+};
+
+interface CrossAppData { amount: number; users: number; loading: boolean; }
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 interface UserProfile {
@@ -231,6 +242,12 @@ export default function AdminUsers() {
   const [filterStatus, setFilterStatus] = useState('all');
 
   // Nuovo Utente dialog
+  const [crossApp, setCrossApp] = useState<Record<string, CrossAppData>>({
+    gestionepassword: { amount: 0, users: 0, loading: true },
+    gestionescadenze: { amount: 0, users: 0, loading: false },
+    speakeasy: { amount: 0, users: 0, loading: true },
+    librifree: { amount: 0, users: 0, loading: true },
+  });
   const [showNewUser, setShowNewUser] = useState(false);
   const [newUserForm, setNewUserForm] = useState<NewUserForm>({
     full_name: '',
@@ -311,9 +328,32 @@ export default function AdminUsers() {
     }
   }, []);
 
+  const fetchCrossAppRevenue = useCallback(async () => {
+    setCrossApp({
+      gestionepassword: { amount: 0, users: 0, loading: true },
+      gestionescadenze: { amount: 0, users: 0, loading: false },
+      speakeasy: { amount: 0, users: 0, loading: true },
+      librifree: { amount: 0, users: 0, loading: true },
+    });
+    for (const [key, cfg] of Object.entries(CROSS_APP_APIS)) {
+      if (!cfg.url) continue;
+      try {
+        const res = await fetch(cfg.url, { signal: AbortSignal.timeout(5000) });
+        if (res.ok) {
+          const d = await res.json();
+          setCrossApp(prev => ({ ...prev, [key]: { amount: d.total_revenue ?? 0, users: d.paying_users ?? 0, loading: false } }));
+        } else {
+          setCrossApp(prev => ({ ...prev, [key]: { amount: 0, users: 0, loading: false } }));
+        }
+      } catch {
+        setCrossApp(prev => ({ ...prev, [key]: { amount: 0, users: 0, loading: false } }));
+      }
+    }
+  }, []);
+
   useEffect(() => {
-    if (isAdmin) fetchUsers();
-  }, [isAdmin, fetchUsers]);
+    if (isAdmin) { fetchUsers(); fetchCrossAppRevenue(); }
+  }, [isAdmin, fetchUsers, fetchCrossAppRevenue]);
 
   // ── Stats ───────────────────────────────────────────────────────────────────
 
@@ -521,7 +561,36 @@ export default function AdminUsers() {
           <StatCard icon={AlertTriangle} label="Scaduti" value={stats.scaduti} color="text-red-500" />
         </div>
 
-        {/* Filters + Table */}
+        {/* Incassi Tutte le App */}
+      <Card>
+        <div className="p-4 border-b flex items-center justify-between">
+          <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+            <TrendingUp className="w-4 h-4" /> Incassi Tutte le App
+          </div>
+          <span className="text-sm font-bold text-primary">
+            Totale Generale: €{Object.values(crossApp).reduce((s, d) => s + (d.loading ? 0 : d.amount), 0).toFixed(2)}
+          </span>
+        </div>
+        <div className="p-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+          {Object.entries(CROSS_APP_APIS).map(([key, cfg]) => {
+            const d = crossApp[key];
+            return (
+              <div key={key} className="rounded-xl border p-4 flex flex-col gap-1">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{cfg.label}</p>
+                {d?.loading
+                  ? <div className="flex items-center gap-2 mt-1"><Loader2 className="w-4 h-4 animate-spin opacity-60" /><span className="text-sm opacity-60">Caricamento...</span></div>
+                  : <>
+                      <p className="text-2xl font-bold text-primary">€{(d?.amount ?? 0).toFixed(2)}</p>
+                      <p className="text-xs text-muted-foreground">{d?.users ?? 0} utenti paganti</p>
+                    </>
+                }
+              </div>
+            );
+          })}
+        </div>
+      </Card>
+
+      {/* Filters + Table */}
         <Card>
           <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
