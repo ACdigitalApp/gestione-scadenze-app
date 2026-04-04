@@ -119,7 +119,7 @@ export function UpgradeBanner() {
                 className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white shadow-lg"
               >
                 <Crown className="w-4 h-4 mr-1" />
-                {loading ? 'Caricamento...' : 'Abbonati €4,99/mese'}
+                {loading ? 'Caricamento...' : 'Abbonati €3,99/mese'}
               </Button>
             </div>
           </div>

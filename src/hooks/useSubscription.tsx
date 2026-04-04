@@ -47,14 +47,14 @@ export function useSubscription() {
       
       const hasActiveSubscription = data?.subscription_status === 'active';
       
-      // Calculate trial from registration date (created_at) - 7 days
+      // Calculate trial from registration date (created_at) - 14 days
       let isInTrial = false;
       let trialDaysRemaining = 0;
       let trialEndDate: string | null = null;
-      
+
       if (data?.created_at && !hasActiveSubscription) {
         const registrationDate = new Date(data.created_at);
-        const trialEnd = new Date(registrationDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days = 168 hours
+        const trialEnd = new Date(registrationDate.getTime() + (14 * 24 * 60 * 60 * 1000)); // 14 days = 336 hours
         const now = new Date();
         
         trialEndDate = trialEnd.toISOString();

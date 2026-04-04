@@ -45,8 +45,8 @@ export function ProFeatureGate({ open, onOpenChange, feature }: ProFeatureGatePr
 
         <div className="space-y-4 pt-4">
           <div className="p-4 bg-muted/50 rounded-lg text-center">
-            <p className="text-2xl font-bold text-primary">€4,99<span className="text-base font-normal text-muted-foreground">/mese</span></p>
-            <p className="text-sm text-muted-foreground mt-1">Accesso completo a tutte le funzionalità</p>
+            <p className="text-2xl font-bold text-primary">€3,99<span className="text-base font-normal text-muted-foreground">/mese</span></p>
+            <p className="text-sm text-muted-foreground mt-1">oppure €29,99/anno (€2,50/mese, risparmio 37%)</p>
           </div>
           
           <ul className="space-y-2 text-sm">
@@ -83,7 +83,7 @@ export function ProFeatureGate({ open, onOpenChange, feature }: ProFeatureGatePr
               className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white"
             >
               <Crown className="w-4 h-4 mr-2" />
-              {loading ? 'Caricamento...' : 'Abbonati a €4,99/mese'}
+              {loading ? 'Caricamento...' : 'Abbonati a €3,99/mese'}
             </Button>
             <Button
               variant="outline"
