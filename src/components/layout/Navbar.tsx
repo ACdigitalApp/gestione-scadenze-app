@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, Receipt, Bell, Settings, LogOut, Download, User, ShieldCheck, Mail, Calendar, Clock, CreditCard, Archive, Crown } from 'lucide-react';
+import { Home, Receipt, Bell, Settings, LogOut, Download, User, ShieldCheck, Mail, Calendar, Clock, CreditCard, Archive, Crown, Landmark } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useAdmin } from '@/hooks/useAdmin';
 import { useProfilePhoto } from '@/hooks/useProfilePhoto';
@@ -294,25 +294,46 @@ export function Navbar() {
 
           {/* Admin link */}
           {isAdmin && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => navigate('/admin/users')}
-                  className={cn(
-                    'w-12 h-12 rounded-xl transition-all',
-                    location.pathname === '/admin/users'
-                      ? 'bg-[#067d1c]/20 shadow-glow' 
-                      : 'hover:bg-[#067d1c]/10'
-                  )}
-                  style={{ color: '#067d1c' }}
-                >
-                  <ShieldCheck className="w-5 h-5" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="right">Gestione Utenti</TooltipContent>
-            </Tooltip>
+            <>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => navigate('/admin/users')}
+                    className={cn(
+                      'w-12 h-12 rounded-xl transition-all',
+                      location.pathname === '/admin/users'
+                        ? 'bg-[#067d1c]/20 shadow-glow'
+                        : 'hover:bg-[#067d1c]/10'
+                    )}
+                    style={{ color: '#067d1c' }}
+                  >
+                    <ShieldCheck className="w-5 h-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right">Gestione Utenti</TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => navigate('/admin/bancari')}
+                    className={cn(
+                      'w-12 h-12 rounded-xl transition-all',
+                      location.pathname === '/admin/bancari'
+                        ? 'bg-[#067d1c]/20 shadow-glow'
+                        : 'hover:bg-[#067d1c]/10'
+                    )}
+                    style={{ color: '#067d1c' }}
+                  >
+                    <Landmark className="w-5 h-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right">Coordinate Bancarie</TooltipContent>
+              </Tooltip>
+            </>
           )}
         </nav>
 

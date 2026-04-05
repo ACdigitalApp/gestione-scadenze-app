@@ -20,6 +20,7 @@ import AdminUsers from "./pages/AdminUsers";
 import Plans from "./pages/Plans";
 import Archive from "./pages/Archive";
 import Pricing from "./pages/Pricing";
+import BankCoordinates from "./pages/BankCoordinates";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ const App = () => (
                 <Route path="/diagnostics" element={<ProtectedRoute><Diagnostics /></ProtectedRoute>} />
                 <Route path="/archive" element={<ProtectedRoute><Archive /></ProtectedRoute>} />
                 <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>} />
+                <Route path="/admin/bancari" element={<ProtectedRoute><BankCoordinates /></ProtectedRoute>} />
                 <Route path="/pricing" element={<Pricing />} />
                 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
