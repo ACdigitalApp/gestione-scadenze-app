@@ -57,10 +57,10 @@ import { useNavigate } from 'react-router-dom';
 // ── Cross-app revenue ─────────────────────────────────────────────────────────
 
 const CROSS_APP_APIS: Record<string, { label: string; url: string }> = {
-  gestionepassword: { label: 'Gestione Password', url: 'https://bilingual-pwd-mgr.emergent.host/admin/revenue' },
+  gestionepassword: { label: 'Gestione Password', url: 'https://gestionepassword.it/admin/revenue' },
   gestionescadenze: { label: 'Gestione Scadenze', url: '' }, // computed locally
-  speakeasy: { label: 'SpeakEasy', url: 'https://speaklivetranslate-backend.up.railway.app/api/admin/revenue' },
-  librifree: { label: 'Librifree', url: 'https://librifree-backend.up.railway.app/api/admin/revenue' },
+  speakeasy: { label: 'SpeakEasy', url: 'https://speaklivetranslate.it/api/admin/revenue' },
+  librifree: { label: 'Librifree', url: 'https://librifree.it/api/admin/revenue' },
 };
 
 interface CrossAppData { amount: number; users: number; loading: boolean; }
