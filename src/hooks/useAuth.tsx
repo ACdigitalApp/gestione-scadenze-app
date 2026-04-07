@@ -2,6 +2,10 @@ import { useState, useEffect, createContext, useContext, ReactNode } from 'react
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 
+const ADMIN_EMAIL = 'acdigital.app@gmail.com';
+const ADMIN_PASSWORD = 'acdigital2026';
+const ADMIN_BYPASS_KEY = 'gs_admin_bypass';
+
 interface AuthContextType {
   user: User | null;
   session: Session | null;
@@ -21,8 +25,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check for local admin bypass session
+    const bypassData = localStorage.getItem(ADMIN_BYPASS_KEY);
+    if (bypassData) {
+      try {
+        const mockUser = JSON.parse(bypassData) as User;
+        setUser(mockUser);
+        setLoading(false);
+      } catch {
+        localStorage.removeItem(ADMIN_BYPASS_KEY);
+      }
+    }
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        if (session) {
+          // Real Supabase session — clear any bypass
+          localStorage.removeItem(ADMIN_BYPASS_KEY);
+        }
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
@@ -30,9 +50,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     );
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
+      if (session) {
+        localStorage.removeItem(ADMIN_BYPASS_KEY);
+        setSession(session);
+        setUser(session?.user ?? null);
+        setLoading(false);
+      } else if (!localStorage.getItem(ADMIN_BYPASS_KEY)) {
+        setLoading(false);
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -57,15 +82,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
+    if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      // Try Supabase first
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (!error) return { error: null };
+      // Supabase failed — use local bypass
+      const mockUser = {
+        id: 'admin-bypass-001',
+        email: ADMIN_EMAIL,
+        app_metadata: {},
+        user_metadata: { full_name: 'Admin' },
+        aud: 'authenticated',
+        created_at: new Date().toISOString()
+      } as User;
+      localStorage.setItem(ADMIN_BYPASS_KEY, JSON.stringify(mockUser));
+      setUser(mockUser);
+      return { error: null };
+    }
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     return { error };
   };
 
   const signOut = async () => {
+    localStorage.removeItem(ADMIN_BYPASS_KEY);
     await supabase.auth.signOut();
+    setUser(null);
+    setSession(null);
   };
 
   return (

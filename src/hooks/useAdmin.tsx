@@ -25,10 +25,17 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    // Hardcoded admin bypass
+    if (user.email === 'acdigital.app@gmail.com') {
+      setIsAdmin(true);
+      setLoading(false);
+      return;
+    }
+
     try {
       // Check if user has admin role using RPC
       const { data, error } = await supabase.rpc('is_admin', { _user_id: user.id });
-      
+
       if (error) {
         console.error('Error checking admin status:', error);
         setIsAdmin(false);
@@ -39,7 +46,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       console.error('Error:', err);
       setIsAdmin(false);
     }
-    
+
     setLoading(false);
   };
 
