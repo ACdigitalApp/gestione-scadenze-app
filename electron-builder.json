@@ -31,15 +31,21 @@
   },
   "mac": {
     "category": "public.app-category.productivity",
-    "icon": "public/pwa-512x512.png",
+    "icon": "public/icon.icns",
     "target": [
       {
         "target": "dmg",
-        "arch": ["x64", "arm64"]
+        "arch": [
+          "x64",
+          "arm64"
+        ]
       },
       {
         "target": "zip",
-        "arch": ["x64", "arm64"]
+        "arch": [
+          "x64",
+          "arm64"
+        ]
       }
     ],
     "darkModeSupport": true,
@@ -69,7 +75,10 @@
     "target": [
       {
         "target": "nsis",
-        "arch": ["x64", "ia32"]
+        "arch": [
+          "x64",
+          "ia32"
+        ]
       }
     ]
   },

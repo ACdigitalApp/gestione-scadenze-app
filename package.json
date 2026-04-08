@@ -53,8 +53,6 @@
     "cmdk": "^1.1.1",
     "concurrently": "^9.2.1",
     "date-fns": "^3.6.0",
-    "electron": "^39.2.7",
-    "electron-builder": "^26.0.12",
     "electron-updater": "^6.6.2",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.26",
@@ -93,6 +91,10 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
-    "vite": "^7.3.1"
-  }
+    "vite": "^7.3.1",
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12"
+  },
+  "description": "Gestione Scadenze - App per gestire scadenze e pagamenti",
+  "author": "AC Digital App"
 }
