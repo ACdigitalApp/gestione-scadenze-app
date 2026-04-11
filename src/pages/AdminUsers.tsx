@@ -561,7 +561,7 @@ export default function AdminUsers() {
         </div>
 
         {/* Incassi Tutte le App */}
-      <Card>
+        <Card>
         <div className="p-4 border-b flex items-center justify-between">
           <div className="flex items-center gap-2 text-sm font-semibold text-primary">
             <TrendingUp className="w-4 h-4" /> Incassi Tutte le App
@@ -587,9 +587,9 @@ export default function AdminUsers() {
             );
           })}
         </div>
-      </Card>
+        </Card>
 
-      {/* Filters + Table */}
+        {/* Filters + Table */}
         <Card>
           <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
