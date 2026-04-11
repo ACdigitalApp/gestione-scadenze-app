@@ -99,7 +99,7 @@ export default function Pricing() {
               }`}
             >
               Annuale
-              <Badge className="bg-green-500 text-white text-xs border-0 px-1.5 py-0">-37%</Badge>
+              <Badge className="bg-green-500 text-white text-xs border-0 px-1.5 py-0">-33%</Badge>
             </button>
           </div>
         </div>
@@ -203,17 +203,17 @@ export default function Pricing() {
                 <div className="pt-4">
                   {billingCycle === 'monthly' ? (
                     <>
-                      <span className="text-4xl font-bold">€3,99</span>
+                      <span className="text-4xl font-bold">€4,99</span>
                       <span className="text-muted-foreground">/mese</span>
                     </>
                   ) : (
                     <>
-                      <span className="text-4xl font-bold">€29,99</span>
+                      <span className="text-4xl font-bold">€39,99</span>
                       <span className="text-muted-foreground">/anno</span>
                       <div className="flex items-center justify-center gap-2 mt-1">
-                        <span className="text-sm text-muted-foreground">€2,50/mese</span>
+                        <span className="text-sm text-muted-foreground">€3,33/mese</span>
                         <Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-0 text-xs">
-                          Risparmio 37%
+                          Risparmia 33%
                         </Badge>
                       </div>
                     </>
@@ -242,7 +242,7 @@ export default function Pricing() {
                   </Button>
                 ) : user ? (
                   <Button
-                    onClick={() => upgradeToPro()}
+                    onClick={() => upgradeToPro(billingCycle)}
                     disabled={loading}
                     className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white shadow-lg text-lg py-6"
                   >
@@ -250,8 +250,8 @@ export default function Pricing() {
                     {loading
                       ? 'Caricamento...'
                       : billingCycle === 'monthly'
-                      ? 'Abbonati a €3,99/mese'
-                      : 'Abbonati a €29,99/anno'
+                      ? 'Abbonati a €4,99/mese'
+                      : 'Abbonati a €39,99/anno'
                     }
                   </Button>
                 ) : (
@@ -364,7 +364,7 @@ export default function Pricing() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Il piano annuale a €29,99/anno equivale a €2,50/mese, risparmio del 37% rispetto al mensile (€3,99/mese). Stesse funzionalità, massimo risparmio.
+                  Il piano annuale a €39,99/anno equivale a €3,33/mese, risparmio del 37% rispetto al mensile (€4,99/mese). Stesse funzionalità, massimo risparmio.
                 </p>
               </CardContent>
             </Card>

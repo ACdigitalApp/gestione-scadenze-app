@@ -81,16 +81,21 @@ export function useSubscription() {
     checkSubscription();
   }, [user]);
 
-  const upgradeToPro = async () => {
+  const PRICE_IDS = {
+    monthly: 'price_1StOD7EiPZqCo6ZjE6oAiJBM',     // €4,99/mese
+    yearly_launch: 'price_1TKiOwEiPZqCo6ZjGEZhzom9', // €39,99/anno (lancio)
+    yearly_standard: 'price_1TKZuKEiPZqCo6ZjRaowFjnr', // €49,00/anno (standard)
+  };
+
+  const upgradeToPro = async (plan: 'monthly' | 'yearly' = 'monthly') => {
     if (!user) {
       toast.error('Devi essere autenticato per effettuare l\'upgrade');
       return;
     }
 
-    // Only monthly plan available
-    const priceId = 'price_1StOD7EiPZqCo6ZjE6oAiJBM';
+    const priceId = plan === 'yearly' ? PRICE_IDS.yearly_launch : PRICE_IDS.monthly;
 
-    console.log(`Initiating monthly checkout with priceId: ${priceId}`);
+    console.log(`Initiating ${plan} checkout with priceId: ${priceId}`);
     setLoading(true);
     
     try {
