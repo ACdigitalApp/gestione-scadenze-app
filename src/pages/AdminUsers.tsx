@@ -561,35 +561,35 @@ export default function AdminUsers() {
         </div>
 
         {/* Incassi Tutte le App */}
-      <Card>
-        <div className="p-4 border-b flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm font-semibold text-primary">
-            <TrendingUp className="w-4 h-4" /> Incassi Tutte le App
+        <Card>
+          <div className="p-4 border-b flex items-center justify-between">
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+              <TrendingUp className="w-4 h-4" /> Incassi Tutte le App ACdigitalApp
+            </div>
+            <span className="text-sm font-bold text-primary">
+              Totale: €{Object.values(crossApp).reduce((s, d) => s + (d.loading ? 0 : d.amount), 0).toFixed(2)}/mese
+            </span>
           </div>
-          <span className="text-sm font-bold text-primary">
-            Totale Generale: €{Object.values(crossApp).reduce((s, d) => s + (d.loading ? 0 : d.amount), 0).toFixed(2)}
-          </span>
-        </div>
-        <div className="p-4 grid grid-cols-2 md:grid-cols-5 gap-4">
-          {Object.entries(CROSS_APP_LABELS).map(([key, label]) => {
-            const d = crossApp[key];
-            return (
-              <div key={key} className="rounded-xl border p-4 flex flex-col gap-1">
-                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</p>
-                {d?.loading
-                  ? <div className="flex items-center gap-2 mt-1"><Loader2 className="w-4 h-4 animate-spin opacity-60" /><span className="text-sm opacity-60">Caricamento...</span></div>
-                  : <>
-                      <p className="text-2xl font-bold text-primary">€{(d?.amount ?? 0).toFixed(2)}</p>
-                      <p className="text-xs text-muted-foreground">{d?.users ?? 0} utenti paganti</p>
-                    </>
-                }
-              </div>
-            );
-          })}
-        </div>
-      </Card>
+          <div className="p-4 grid grid-cols-2 md:grid-cols-5 gap-4">
+            {Object.entries(CROSS_APP_LABELS).map(([key, label]) => {
+              const d = crossApp[key];
+              return (
+                <div key={key} className="rounded-xl border p-4 flex flex-col gap-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</p>
+                  {d?.loading
+                    ? <div className="flex items-center gap-2 mt-1"><Loader2 className="w-4 h-4 animate-spin opacity-60" /><span className="text-sm opacity-60">Caricamento...</span></div>
+                    : <>
+                        <p className="text-2xl font-bold text-primary">€{(d?.amount ?? 0).toFixed(2)}</p>
+                        <p className="text-xs text-muted-foreground">{d?.users ?? 0} paganti</p>
+                      </>
+                  }
+                </div>
+              );
+            })}
+          </div>
+        </Card>
 
-      {/* Filters + Table */}
+        {/* Filters + Table */}
         <Card>
           <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
