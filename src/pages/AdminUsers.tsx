@@ -332,9 +332,7 @@ export default function AdminUsers() {
 
   const fetchCrossAppRevenue = useCallback(async () => {
     try {
-      const res = await fetch('/api/stripe-revenue');
-      const data = await res.json();
-      const error = res.ok ? null : data;
+      const { data, error } = await supabase.functions.invoke('stripe-revenue');
       if (!error && data?.revenue) {
         const updated: Record<string, CrossAppData> = {};
         for (const key of Object.keys(CROSS_APP_LABELS)) {
