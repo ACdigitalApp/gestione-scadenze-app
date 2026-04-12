@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.admin-get-users]
 verify_jwt = false
+
+[functions.stripe-revenue]
+verify_jwt = false
