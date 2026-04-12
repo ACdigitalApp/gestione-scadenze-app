@@ -31,11 +31,10 @@ serve(async (req) => {
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
 
-    // Recupera tutte le subscription attive (max 100, expand product)
+    // Recupera tutte le subscription attive (max 100)
     const subscriptions = await stripe.subscriptions.list({
       status: "active",
       limit: 100,
-      expand: ["data.items.data.price.product"],
     });
 
     // Mappa productId → chiave app

@@ -28,7 +28,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const subscriptions = await stripe.subscriptions.list({
       status: 'active',
       limit: 100,
-      expand: ['data.items.data.price.product'],
     });
 
     const productToApp: Record<string, string> = {};
