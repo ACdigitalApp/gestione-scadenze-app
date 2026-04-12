@@ -384,8 +384,8 @@ export function Navbar() {
                     style={{ color: '#067d1c' }}
                   />
                 </div>
-                <span 
-                  className="text-xs font-medium"
+                <span
+                  className="text-[10px] font-medium truncate max-w-[56px] text-center leading-tight"
                   style={{ color: item.color }}
                 >
                   {item.label}
