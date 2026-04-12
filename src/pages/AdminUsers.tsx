@@ -275,6 +275,23 @@ export default function AdminUsers() {
     try {
       setLoading(true);
 
+      // Bypass users (no real Supabase JWT) → use edge function with service role
+      const isBypassUser = user?.id === 'admin-bypass-001';
+
+      if (isBypassUser) {
+        const { data, error } = await supabase.functions.invoke('admin-get-users', {
+          headers: { 'x-admin-token': 'gs-admin-bypass-2026' },
+        });
+        if (error || !data?.users) {
+          toast.error('Errore nel caricamento utenti');
+          setUsers([]);
+          return;
+        }
+        setUsers(data.users as UserProfile[]);
+        return;
+      }
+
+      // Real admin user → use RPC
       const { data: rpcData, error } = await supabase.rpc('get_all_users_for_admin');
       if (error) { toast.error('Errore nel caricamento utenti'); return; }
       if (!rpcData || rpcData.length === 0) { setUsers([]); return; }
@@ -328,7 +345,7 @@ export default function AdminUsers() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [user]);
 
   const fetchCrossAppRevenue = useCallback(async () => {
     try {
