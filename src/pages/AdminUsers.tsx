@@ -279,25 +279,26 @@ export default function AdminUsers() {
       const isBypassUser = user?.id === 'admin-bypass-001';
 
       if (isBypassUser) {
-        const { data, error } = await supabase.functions.invoke('admin-get-users', {
+        // Try edge function first (deployed on tbqreletxtzaosvyyvnv)
+        const { data: fnData, error: fnError } = await supabase.functions.invoke('admin-get-users', {
           headers: { 'x-admin-token': 'gs-admin-bypass-2026' },
         });
-        if (!error && data?.users) {
-          setUsers(data.users as UserProfile[]);
+        if (!fnError && fnData?.users) {
+          setUsers(fnData.users as UserProfile[]);
           return;
         }
-        // Edge function not on this project — sign in for real and use RPC
+        // Edge function not on this project — sign in with real credentials
+        // then call RPC directly in the same flow (no need to wait for re-render)
         const { error: signInErr } = await supabase.auth.signInWithPassword({
           email: 'acdigital.app@gmail.com',
           password: 'acdigital2026',
         });
         if (signInErr) {
-          toast.error('Errore nel caricamento utenti');
+          toast.error('Errore caricamento: ' + signInErr.message);
           setUsers([]);
           return;
         }
-        // onAuthStateChange will update user → fetchUsers re-runs with real JWT
-        return;
+        // Session is now set — fall through to RPC path below
       }
 
       // Real admin user → use RPC
