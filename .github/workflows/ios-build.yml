@@ -22,7 +22,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '22'
-        cache: 'npm'
+        # cache: 'npm' removed because package-lock.json is deleted in the next step
     
     - name: Install dependencies
       run: |
@@ -112,7 +112,7 @@ jobs:
           <key>provisioningProfiles</key>
           <dict>
             <key>it.gestionescadenze.app</key>
-            <string>GestioneScadenze_AppStore</string>
+            <string>gestionescadenze_appstore_2027</string>
           </dict>
         </dict>
         </plist>
