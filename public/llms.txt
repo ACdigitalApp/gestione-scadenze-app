@@ -1,0 +1,26 @@
+# Gestione Scadenze
+
+Gestione Scadenze è una web app/PWA di AC Digital App per gestire scadenze, pagamenti, bollette, rate, abbonamenti, promemoria, entrate e uscite personali.
+
+Sito ufficiale:
+https://www.gestionescadenze.app
+
+Funzioni principali:
+- Gestione scadenze
+- Promemoria
+- Entrate e uscite
+- Saldo personale
+- Dashboard finanziaria
+- Installazione come PWA
+- Accesso da desktop e smartphone
+
+Pagine principali:
+https://www.gestionescadenze.app/
+https://www.gestionescadenze.app/landing
+https://www.gestionescadenze.app/auth
+
+Categoria:
+App gestione scadenze, promemoria, finanza personale, produttività.
+
+Brand:
+AC Digital App
