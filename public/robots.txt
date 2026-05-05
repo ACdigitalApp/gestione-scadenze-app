@@ -1,45 +1,23 @@
-{
-  "headers": [
-    {
-      "source": "/sitemap.xml",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/xml; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/robots.txt",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/manifest.webmanifest",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/manifest+json; charset=utf-8"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/((?!sitemap\\.xml|robots\\.txt|manifest\\.webmanifest|favicon\\.ico|assets/.*|pwa-.*\\.png).*)",
-      "destination": "/index.html"
-    }
-  ]
-}
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /settings
+Disallow: /users
+Disallow: /transactions
+Disallow: /checkout
+Disallow: /billing
+
+Sitemap: https://www.gestionescadenze.app/sitemap.xml
