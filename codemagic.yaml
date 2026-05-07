@@ -5,6 +5,16 @@ workflows:
     instance_type: mac_mini_m2
 
     integrations:
+      app_store_connect: Codemagic2
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: it.gestionescadenze.app
+      node: 22.12.0
+      xcode: 26.2
+      cocoapods: default
+
+    integrations:
       app_store_connect: Codemagic
 
     environment:
@@ -15,10 +25,34 @@ workflows:
       xcode: 26.2
       cocoapods: default
 
+
     scripts:
       - name: Install dependencies
         script: |
           npm install
+
+      - name: Build web app
+        script: |
+          npm run build
+      - name: Sync Capacitor with iOS
+        script: |
+          npx cap sync ios
+      - name: Set up code signing
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files \
+            it.gestionescadenze.app \
+            --type IOS_APP_STORE \
+            --create
+          keychain add-certificates
+          xcode-project use-profiles
+      - name: Build iOS app
+        script: |
+          xcode-project build-ipa \
+            --project ios/App/App.xcodeproj \
+            --scheme App
+    artifacts:
+      - build/ios/ipa/App.ipa
 
       - name: Build web app
         script: |
@@ -53,6 +87,7 @@ workflows:
     artifacts:
       - build/ios/ipa/*.ipa
 
+
     publishing:
       email:
         recipients:
@@ -60,6 +95,7 @@ workflows:
         notify:
           success: true
           failure: true
+
 
       app_store_connect:
         auth: integration
